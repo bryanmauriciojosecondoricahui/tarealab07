@@ -1,0 +1,94 @@
+doctype html
+html
+  head
+    title Administrar Plantas
+    style.
+      body {
+        font-family: 'Arial', sans-serif;
+        padding: 20px;
+        margin: 30px auto; /* Márgenes de 20px en la parte superior e inferior, centrado horizontalmente */
+        background-color: #ecf0e7;
+        width: 80%; /* Ancho del contenido de la página */
+      }
+      h1 {
+        color: #5c874f;
+        text-align: center;
+      }
+      h2 {
+        margin-top: 20px;
+        color: #5c874f;
+      }
+      form {
+        margin-bottom: 20px;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+        color: #5c874f;
+      }
+      input[type="text"], input[type="email"], input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #a4c3a2;
+        border-radius: 4px;
+      }
+      button[type="submit"] {
+        padding: 10px 20px;
+        background-color: #5c874f;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      button[type="submit"]:hover {
+        background-color: #4f7c47;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+      th, td {
+        border: 1px solid #a4c3a2;
+        padding: 10px;
+        text-align: left;
+      }
+      th {
+        background-color: #5c874f;
+        color: white;
+      }
+  body
+    h1 Administrar Plantas
+
+    h2 Agregar Planta
+    form(action="/addPlant", method="POST")
+      label(for="name") Nombre de la Planta:
+      input(type="text", name="name")
+      br
+      label(for="description") Descripción:
+      input(type="text", name="description")
+      br
+      label(for="care") Cuidados:
+      input(type="text", name="care")
+      br
+      button(type="submit") Agregar Planta
+
+    h2 Plantas Actuales
+    table
+      thead
+        tr
+          th Nombre
+          th Descripción
+          th Cuidados
+          th Acciones
+      tbody
+        each plant in plants
+          tr
+            td= plant.name
+            td= plant.description
+            td= plant.care
+            td
+              form(action="/deletePlant", method="POST")
+                input(type="hidden", name="plantId", value=plant._id)
+                button(type="submit") Eliminar
